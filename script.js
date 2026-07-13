@@ -11,21 +11,26 @@ function calculateTotal(event) {
   // Prevent the form from submitting
   event.preventDefault();
 
-  // Display the total amount as a decimal
-  totalDisplay.innerText = "Total: $" + total.toFixed(2); // Format number to a fixed number of (2) decimal places
+  // Get the bill amount and tip percentage from the inputs. Converts string values to numbers using Number() function
+  let bill = parseFloat(billInput.value);
+  let tip = parseFloat(tipSelect.value);
 
-  // Get the bill amount and tip percentage from the inputs
-  let bill = billInput.value;
-  let tip = tipSelect.value; 
+  if (isNaN(bill) || isNaN(tip)) {
+    totalDisplay.innerText = "Please enter valid numbers for both fields.";
+    return;
+  }
 
   // Calculate the total amount
   let total = bill + (bill * tip / 100);
+
+  // Display the total amount as a decimal
+  totalDisplay.innerText = "Total: $" + total.toFixed(2); // Format number to a fixed number of (2) decimal places
 }
 
 // Function to toggle light/dark mode
 function toggleTheme() {
-  if (document.body.className === "dark") {
-    document.body.className = "light";
+  if (document.body.classList.contains("dark")) {
+    document.body.classList.remove("dark");
     themeToggle.innerText = "Switch to Dark Mode";
   } else {
     document.body.classList.add("dark");
